@@ -3,7 +3,6 @@
  */
 
 var wpcom = require('wpcom'),
-	jsonMarkup = require('json-markup'),
 	express = require('express'),
 	logger = require('morgan'),
 	errorhandler = require('errorhandler'),
@@ -51,7 +50,7 @@ var wpcc_consts = {
 	"login_url": "http://"+hostname+":3000/", 
 	"redirect_url": "http://"+hostname+":3000/connected", 
 	"request_token_url": "https://public-api.wordpress.com/oauth2/token",
-	"authenticate_url": "https://public-api.wordpress.com/oauth2/authenticate"
+	"authenticate_url": "https://public-api.wordpress.com/oauth2/authorize"
 }
 
 // static routes
