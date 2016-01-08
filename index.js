@@ -18,6 +18,29 @@ var wpcom = require('wpcom'),
 var pitft = require("pitft"),
 	fb = pitft("/dev/fb1");
 
+var touchscreen = require("pitft-touch");
+
+touchscreen("/dev/input/touchscreen", function(err, data) {
+    if (err) {
+        throw err;
+    }
+
+    var screenX = ((270 - 50) / (693 - 3307)) * data.x + 320;
+    var screenY = ((190 - 50) / (3220 - 996)) * data.y;
+
+    if ( data.touch === 1 ) {
+    	printPi( screenX, screenY );
+    }
+
+    // Stop after 10 touches
+    //if (touchCount++ == 10) {
+    //    data.stop = true;
+    //}
+
+    console.log(data);
+});
+
+
 // Clear the screen buffer
 fb.clear();
 
@@ -28,6 +51,13 @@ var yMax = fb.size().height;
 function printRandomPi() {
 	var x = Math.random() * (xMax + 32) - 16;
     var y = Math.random() * (yMax + 32) - 16;
+
+    fb.image(x, y, "raspberry-pi-icon.png");
+}
+
+function printPi( x, y ) {
+	// var x = Math.random() * (xMax + 32) - 16;
+ //    var y = Math.random() * (yMax + 32) - 16;
 
     fb.image(x, y, "raspberry-pi-icon.png");
 }
